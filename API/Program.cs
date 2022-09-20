@@ -1,17 +1,47 @@
+using System.Net.Mime;
+using System.Reflection;
+using Application.DTOs;
+using Application.Validators;
+using AutoMapper;
+using Domain;
+using FluentValidation;
+using Infrastructure;
+using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.SwaggerUI;
+
 var builder = WebApplication.CreateBuilder(args);
+
+Console.WriteLine("initializing");
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+
+
+var mapper = new MapperConfiguration(configuration =>
+{
+    configuration.CreateMap<PostProductDTO, Product>();
+}).CreateMapper();
+builder.Services.AddSingleton(mapper);
+
+builder.Services.AddDbContext<ProductDbContext>(options => options.UseSqlite(
+    "Data source=db.db"
+    ));
+
 
 Application.DependencyResolver
     .DependencyResolverService
     .RegisterApplicationLayer(builder.Services);
 
-Infrastructure.DependencyResolver.DependencyResolverService.RegisterInfrastructure(builder.Services);
+Infrastructure.DependencyResolver
+    .DependencyResolverService
+    .RegisterInfrastructure(builder.Services);
+
+
 
 var app = builder.Build();
 
