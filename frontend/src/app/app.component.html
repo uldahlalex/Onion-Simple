@@ -1,0 +1,21 @@
+<div style="margin: 100px;">
+  <mat-form-field>
+    <input matInput [(ngModel)]="productName">
+  </mat-form-field>
+  <br>
+
+  <mat-form-field>
+    <input type="number" matInput [(ngModel)]="productPrice" >
+  </mat-form-field>
+  <br>
+  <button [disabled]="productName=='' || productPrice<1" mat-raised-button (click)="createProduct()">Click me</button>
+
+  <mat-card style="margin-top: 30px;" *ngFor="let p of products">
+    <mat-card-title>{{p.name}}</mat-card-title>
+    <mat-card-subtitle>{{p.price}},-</mat-card-subtitle>
+    <mat-card-subtitle>product number: {{p.id}}</mat-card-subtitle>
+  <mat-card-actions>
+    <button mat-button (click)="deleteProduct(p.id)">Delete</button>
+  </mat-card-actions>
+  </mat-card>
+</div>
