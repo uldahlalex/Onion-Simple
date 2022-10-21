@@ -3,10 +3,12 @@ using AutoMapper;
 using Domain;
 using Domain.Interfaces;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class ProductController : ControllerBase
@@ -17,13 +19,14 @@ public class ProductController : ControllerBase
     {
         _productService = productService;
     }
-
+    
     [HttpGet]
     public ActionResult<List<Product>> GetAllProducts()
     {
         return _productService.GetAllProducts();
     }
 
+    [Authorize("AdminPolicy")]
     [HttpPost]
     [Route("")]
     public ActionResult<Product> CreateNewProduct(PostProductDTO dto)
@@ -60,6 +63,7 @@ public class ProductController : ControllerBase
     }
     
 
+    [AllowAnonymous]
     [HttpGet]
     [Route("RebuildDB")]
     public void RebuildDB()
