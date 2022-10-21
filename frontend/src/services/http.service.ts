@@ -5,7 +5,10 @@ import {MatButton} from "@angular/material/button";
 import {catchError} from "rxjs";
 
 export const customAxios = axios.create({
-  baseURL: 'https://localhost:5001'
+  baseURL: 'http://localhost:5000',
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem('token')}`
+  }
 })
 
 @Injectable({
@@ -46,5 +49,10 @@ export class HttpService {
     const httpsResult = await customAxios.delete('product/'+id);
     return httpsResult.data;
 
+  }
+
+  async login(dto: any) {
+    const httpResult = await customAxios.post('auth/login', dto);
+    return httpResult.data;
   }
 }

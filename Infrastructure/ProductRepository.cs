@@ -7,9 +7,9 @@ namespace Infrastructure;
 public class ProductRepository : IProductRepository
 {
 
-    private readonly ProductDbContext _context; 
+    private readonly DatabaseContext _context; 
     
-    public ProductRepository(ProductDbContext context)
+    public ProductRepository(DatabaseContext context)
     {
         _context = context;
     }
