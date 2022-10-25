@@ -2,16 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {HttpService} from "../../services/http.service";
 import axios from 'axios';
 
-const flightScanner = {
-  method: 'GET',
-  url: 'https://skyscanner44.p.rapidapi.com/autocomplete',
-  params: {query: 'berlin'},
-  headers: {
-    'X-RapidAPI-Key': 'a178b95dbdmshf5fb7e5f48a7b4dp11e228jsnbc0de2c6f9cd',
-    'X-RapidAPI-Host': 'skyscanner44.p.rapidapi.com'
-  }
-};
-
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
