@@ -4,6 +4,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatButton} from "@angular/material/button";
 import {catchError} from "rxjs";
 
+
 export const customAxios = axios.create({
   baseURL: 'http://localhost:5000',
   headers: {
@@ -53,6 +54,11 @@ export class HttpService {
 
   async login(dto: any) {
     const httpResult = await customAxios.post('auth/login', dto);
+    return httpResult.data;
+  }
+
+  async getWeather() {
+    const httpResult = await axios.get('https://wttr.in');
     return httpResult.data;
   }
 }

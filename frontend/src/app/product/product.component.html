@@ -19,3 +19,15 @@
     </mat-card-actions>
   </mat-card>
 </div>
+
+<mat-form-field class="example-full-width" appearance="fill">
+  <mat-label>Postnummer</mat-label>
+  <input  (ngModelChange)="find()" [(ngModel)]="postnr" matInput>
+</mat-form-field>
+<mat-form-field class="example-full-width" appearance="fill">
+  <mat-label>By</mat-label>
+  <input (ngModelChange)="find()" [(ngModel)]="by" matInput>
+</mat-form-field>
+
+
+<p *ngFor="let a of adresser">{{a.adresse.vejnavn}}: {{a.adresse.husnr}}</p>
